@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090909">
+<title>SharkMiner BTC</title>
+<style>
+:root{--bg:#090909;--panel:#141414;--panel2:#1b1a17;--gold:#d7ad52;--gold2:#f3d58a;--muted:#9a9589;--line:#302a1d;--green:#76c69a;--red:#e58b80}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#211b0d 0,#090909 48%);color:#f4f0e7;font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
+header{padding:22px 18px 14px;display:flex;align-items:center;justify-content:space-between;max-width:980px;margin:auto}
+.brand{display:flex;gap:11px;align-items:center}.logo{width:42px;height:42px;border:1px solid var(--gold);border-radius:13px;display:grid;place-items:center;color:var(--gold2);font-weight:900;font-size:20px;box-shadow:0 0 22px #d7ad5222}
+h1{font-size:17px;letter-spacing:2px;margin:0}.sub{font-size:10px;letter-spacing:2px;color:var(--muted)}
+.pill{font-size:11px;color:var(--gold2);border:1px solid #665127;border-radius:30px;padding:6px 10px}
+main{max-width:980px;margin:auto;padding:8px 16px 100px}.hero{border:1px solid #5d4822;background:linear-gradient(135deg,#211b0d,#12110e 65%);border-radius:22px;padding:22px;margin:8px 0 16px;position:relative;overflow:hidden}
+.hero:after{content:"₿";position:absolute;right:18px;top:0;color:#d7ad5218;font-size:130px;font-weight:900}
+.eyebrow{color:var(--gold);font-size:11px;letter-spacing:2px;text-transform:uppercase}.hero h2{font-size:25px;line-height:1.15;margin:9px 0}.hero p{color:#c3bdaf;max-width:520px;margin:0;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{background:linear-gradient(145deg,#191919,#111);border:1px solid var(--line);border-radius:17px;padding:16px;min-width:0}.card.wide{grid-column:1/-1}
+.label{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1.3px}.value{font-size:24px;font-weight:700;margin:6px 0;color:#f6edda;overflow-wrap:anywhere}.gold{color:var(--gold2)}.small{font-size:12px;color:var(--muted)}.status{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--green)}.dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+nav{position:fixed;bottom:0;left:0;right:0;background:#0e0e0ef2;border-top:1px solid #332b1d;display:flex;justify-content:center;gap:4px;padding:9px 8px calc(9px + env(safe-area-inset-bottom));backdrop-filter:blur(14px);z-index:5}
+nav button{background:none;border:0;color:var(--muted);padding:8px 12px;border-radius:12px;font-size:11px;min-width:68px}nav button.active{background:#2a2110;color:var(--gold2)}
+button,.action{cursor:pointer}button.primary{background:linear-gradient(135deg,#e8c878,#b78b35);color:#17130b;border:0;border-radius:12px;padding:11px 15px;font-weight:750}
+button.secondary{background:#211d14;color:var(--gold2);border:1px solid #574522;border-radius:12px;padding:10px 13px}
+input{width:100%;background:#0c0c0c;color:#f4f0e7;border:1px solid #403724;border-radius:11px;padding:12px;margin:5px 0 13px;font:inherit}
+label{font-size:12px;color:#c5bda9}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.row>*{flex:1}
+.section{display:none}.section.active{display:block}.notice{border:1px solid #5a4826;background:#201a0d;border-radius:13px;padding:12px;color:#d8c99f;font-size:12px;margin:12px 0}
+.divider{height:1px;background:#302a1d;margin:13px 0}.listrow{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #28241c;font-size:13px}.listrow:last-child{border:0}
+footer{text-align:center;color:#696457;font-size:10px;padding:20px 0}
+@media(min-width:700px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.hero{padding:30px}.hero h2{font-size:32px}.card.wide{grid-column:span 2}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">₿</div><div><h1>SHARKMINER BTC</h1><div class="sub">LUXURY MINING CONTROL</div></div></div><div class="pill">V1.0 · BETA</div></header>
+<main>
+<section id="dashboard" class="section active">
+ <div class="hero"><div class="eyebrow">Your mining journey starts here</div><h2>Build. Monitor.<br><span class="gold">Mine Bitcoin.</span></h2><p>A personal Bitcoin mining management dashboard. Connect real data and hardware as your operation grows.</p></div>
+ <div class="grid">
+  <div class="card"><div class="label">Bitcoin price</div><div class="value gold" id="btcPrice">Loading…</div><div class="small" id="priceTime">Fetching BTC/ZAR</div></div>
+  <div class="card"><div class="label">Tracked BTC</div><div class="value" id="btcBalance">0.00000000</div><div class="small">Wallet balance · public address</div></div>
+  <div class="card"><div class="label">Mining hashrate</div><div class="value" id="dashHash">0 TH/s</div><div class="small">Manual estimate until hardware connects</div></div>
+  <div class="card"><div class="label">Power draw</div><div class="value" id="dashPower">0 W</div><div class="small">Configured equipment</div></div>
+  <div class="card wide"><div class="label">Mining status</div><div class="value" style="font-size:18px">No miner connected</div><div class="status"><span class="dot"></span> Management mode · ready for setup</div><div class="small" style="margin-top:8px">This app does not mine Bitcoin using your phone. It tracks data and prepares to manage real ASIC equipment.</div></div>
+  <div class="card wide"><div class="label">Network snapshot</div><div class="listrow"><span>Latest block height</span><strong id="blockHeight">—</strong></div><div class="listrow"><span>Network difficulty</span><strong id="difficulty">—</strong></div><div class="listrow"><span>Data provider</span><strong>mempool.space</strong></div></div>
+ </div>
+ <div class="row" style="margin-top:14px"><button class="primary" onclick="refreshData()">Refresh live data</button><button class="secondary" onclick="showTab('mining')">Set up mining profile</button></div>
+</section>
+
+<section id="mining" class="section">
+ <div class="hero"><div class="eyebrow">Module 02 · SharkPool & SharkHardware</div><h2>Mining <span class="gold">profile</span></h2><p>Enter equipment specifications to estimate electricity use. These values are not proof of active mining.</p></div>
+ <div class="card">
+  <label for="hashrate">Configured hashrate (TH/s)</label><input id="hashrate" type="number" min="0" step="0.1" placeholder="e.g. 200">
+  <label for="watts">Power consumption (watts)</label><input id="watts" type="number" min="0" step="1" placeholder="e.g. 3500">
+  <label for="tariff">Electricity tariff (R/kWh)</label><input id="tariff" type="number" min="0" step="0.01" placeholder="Find this on your bill or prepaid tariff">
+  <button class="primary" onclick="saveMining()">Save mining profile</button>
+  <div class="divider"></div><div class="label">Estimated electricity cost</div><div class="value gold" id="dailyCost">R0.00 / day</div><div class="small" id="monthlyCost">R0.00 / 30 days · excludes cooling and other costs</div>
+ </div>
+ <div class="notice">Profit is not calculated yet because a verified, current network revenue estimate and pool fee are required. We will add this after validating the data source. Do not treat a hashrate entry as actual mining.</div>
+</section>
+
+<section id="wallet" class="section">
+ <div class="hero"><div class="eyebrow">Module 01 · SharkWallet</div><h2>Bitcoin <span class="gold">wallet tracker</span></h2><p>Track a public Bitcoin address without sharing private keys or recovery phrases.</p></div>
+ <div class="card">
+  <label for="address">Public Bitcoin address</label><input id="address" type="text" autocomplete="off" placeholder="Paste your BTC receiving address">
+  <div class="row"><button class="primary" onclick="saveAddress()">Save address</button><button class="secondary" onclick="trackWallet()">Check balance</button></div>
+  <div class="divider"></div><div class="label">Confirmed balance</div><div class="value gold" id="walletBalance">— BTC</div><div class="small" id="walletInfo">No address checked yet.</div>
+ </div>
+ <div class="notice">Security: only enter a public receiving address. SharkMiner never needs your seed phrase, private key, Luno password or withdrawal code.</div>
+</section>
+
+<section id="assistant" class="section">
+ <div class="hero"><div class="eyebrow">Module 03 · SharkAI</div><h2>Mining <span class="gold">assistant</span></h2><p>Early-stage guidance built around safe, transparent mining decisions.</p></div>
+ <div class="card"><div class="label">Ask SharkAI</div><p class="small">Choose a topic for a practical explanation.</p>
+  <div class="listrow"><span>Can my phone mine Bitcoin?</span><button class="secondary" onclick="answer('A normal Android phone cannot mine Bitcoin profitably. Use it to monitor miners and manage your operation. Bitcoin mining requires specialised SHA-256 ASIC hardware.')">Explain</button></div>
+  <div class="listrow"><span>What is hashrate?</span><button class="secondary" onclick="answer('Hashrate measures how many hashes a miner calculates each second. TH/s means trillions of hashes per second. Higher hashrate can earn a larger share of pool rewards, but power efficiency and electricity price matter.')">Explain</button></div>
+  <div class="listrow"><span>What is a mining pool?</span><button class="secondary" onclick="answer('A mining pool combines the hashrate of many miners. When the pool earns a block reward, it distributes payouts according to its payout rules and your contributed work, minus applicable fees.')">Explain</button></div>
+  <div class="listrow"><span>What should I check before buying an ASIC?</span><button class="secondary" onclick="answer('Check verified hashrate, joules per terahash, wall power, purchase price, warranty, shipping and import costs, noise, cooling, electrical supply and your actual electricity tariff. Calculate net profit under conservative assumptions.')">Explain</button></div>
+  <div id="aiAnswer" class="notice" style="display:none"></div>
+ </div>
+</section>
+
+<section id="settings" class="section">
+ <div class="hero"><div class="eyebrow">Module 05 · Settings</div><h2>System <span class="gold">settings</span></h2><p>Manage local preferences and understand the current V1 limits.</p></div>
+ <div class="card"><div class="listrow"><span>App version</span><strong>1.0 Beta</strong></div><div class="listrow"><span>Storage</span><strong>On this device</strong></div><div class="listrow"><span>Mining engine</span><strong>Not included</strong></div><div class="listrow"><span>Private keys stored</span><strong>Never</strong></div><div class="divider"></div><button class="secondary" onclick="if(confirm('Clear locally saved settings and wallet address?')){localStorage.removeItem('sm_profile');localStorage.removeItem('sm_address');location.reload()}">Reset local settings</button></div>
+ <div class="notice">Live market and network data require an internet connection. This beta stores profile settings on this device only. Do not use it as a custodial wallet.</div>
+</section>
+<footer>SHARKMINER BTC · V1.0 BETA · NOT A MINING DEVICE</footer>
+</main>
+<nav>
+ <button class="active" data-tab="dashboard" onclick="showTab('dashboard')">⌂<br>Home</button>
+ <button data-tab="mining" onclick="showTab('mining')">◈<br>Mining</button>
+ <button data-tab="wallet" onclick="showTab('wallet')">₿<br>Wallet</button>
+ <button data-tab="assistant" onclick="showTab('assistant')">✧<br>SharkAI</button>
+ <button data-tab="settings" onclick="showTab('settings')">⚙<br>Settings</button>
+</nav>
+<script>
+const $=id=>document.getElementById(id);
+function showTab(id){document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));window.scrollTo(0,0)}
+function money(n){return 'R'+Number(n).toLocaleString('en-ZA',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function satToBtc(s){return (s/1e8).toFixed(8)}
+async function refreshData(){
+ $('btcPrice').textContent='Loading…';
+ try{
+  const r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=zar');if(!r.ok)throw Error('Price service unavailable');const d=await r.json();
+  $('btcPrice').textContent=money(d.bitcoin.zar);$('priceTime').textContent='Updated '+new Date().toLocaleTimeString();
+ }catch(e){$('btcPrice').textContent='Unavailable';$('priceTime').textContent='Could not load BTC/ZAR right now'}
+ try{
+  const r=await fetch('https://mempool.space/api/v1/difficulty-adjustment');if(!r.ok)throw Error();const d=await r.json();$('difficulty').textContent=Number(d.previousRetarget).toLocaleString('en-US',{maximumFractionDigits:0});
+ }catch(e){$('difficulty').textContent='Unavailable'}
+ try{
+  const r=await fetch('https://mempool.space/api/blocks/tip/height');if(!r.ok)throw Error();$('blockHeight').textContent=Number(await r.text()).toLocaleString('en-US');
+ }catch(e){$('blockHeight').textContent='Unavailable'}
+}
+function loadProfile(){const p=JSON.parse(localStorage.getItem('sm_profile')||'{}');$('hashrate').value=p.hashrate||'';$('watts').value=p.watts||'';$('tariff').value=p.tariff||'';updateCosts();$('dashHash').textContent=(p.hashrate||0)+' TH/s';$('dashPower').textContent=(p.watts||0)+' W';$('address').value=localStorage.getItem('sm_address')||''}
+function saveMining(){const p={hashrate:Number($('hashrate').value)||0,watts:Number($('watts').value)||0,tariff:Number($('tariff').value)||0};localStorage.setItem('sm_profile',JSON.stringify(p));$('dashHash').textContent=p.hashrate+' TH/s';$('dashPower').textContent=p.watts+' W';updateCosts();alert('Mining profile saved on this device. This does not start mining.')}
+function updateCosts(){const w=Number($('watts').value)||0,t=Number($('tariff').value)||0,d=w/1000*24*t;$('dailyCost').textContent=money(d)+' / day';$('monthlyCost').textContent=money(d*30)+' / 30 days · excludes cooling and other costs'}
+['watts','tariff'].forEach(id=>$(id).addEventListener('input',updateCosts));
+function saveAddress(){const a=$('address').value.trim();if(!a){alert('Enter a public Bitcoin address first.');return}localStorage.setItem('sm_address',a);alert('Public address saved locally.')}
+async function trackWallet(){const a=$('address').value.trim();if(!a){alert('Enter a public Bitcoin address first.');return}if(!/^(bc1[ac-hj-np-z02-9]{11,71}|[13][a-km-zA-HJ-NP-Z1-9]{25,34})$/.test(a)){alert('That does not look like a standard Bitcoin mainnet address. Check it and try again.');return}$('walletBalance').textContent='Loading…';$('walletInfo').textContent='Checking public blockchain data…';try{const r=await fetch('https://mempool.space/api/address/'+encodeURIComponent(a));if(!r.ok)throw Error('Address lookup failed');const d=await r.json();const sats=d.chain_stats.funded_txo_sum-d.chain_stats.spent_txo_sum;$('walletBalance').textContent=satToBtc(sats)+' BTC';$('walletInfo').textContent='Confirmed balance · '+d.chain_stats.tx_count+' confirmed transactions. Unconfirmed balance is not included.';localStorage.setItem('sm_address',a)}catch(e){$('walletBalance').textContent='Unavailable';$('walletInfo').textContent='Could not retrieve this address. Check the address or try again later.'}}
+function answer(s){$('aiAnswer').style.display='block';$('aiAnswer').textContent=s}
+loadProfile();refreshData();setInterval(refreshData,120000);
+</script>
+</body>
+</html>
